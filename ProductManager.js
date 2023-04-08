@@ -28,12 +28,16 @@ class ProductManager{
 
     async addProduct(product){
         try {
+            //condicional, todos los campos deben tener datos
+            if(!product.title || !product.description || !product.price || !product.thumbnail || !product.code || !product.stock){
+            return console.log("Los campos son obligatorios")
+        } 
             //Si existe el archivo "products.json" es porque el arreglo products ya tiene productos
             if(this.fileExists()){
                 const content = await fs.promises.readFile(this.path,"utf-8");
                 //Al ser un archivo JSON se debe aplicar parse para mantener sus propiedades
                 const products = JSON.parse(content);
-                //Se crea una constante utulizando la función generateId
+                //Se crea una constante utilizando la función generateId
                 const productId = this.generateId(products);
                 //Sobreescribe la propeidad "id" según la función "generateId"
                 product.id = productId;
@@ -171,10 +175,10 @@ class ProductManager{
 
  const funcionPrincipal=async()=>{
      try {
-            //const productAdded = await manager.addProduct({title:"Encimera",description:"Encimera Inducción",price:1500,thumbnail:"https://aireacondicionadopaco.es/wp-content/uploads/2019/10/EMI320-3F_WEB.png", code: "A1", stock:13});
+            const productAdded = await manager.addProduct({title:"Encimera",description:"Encimera Inducción",price:1500,thumbnail:"https://aireacondicionadopaco.es/wp-content/uploads/2019/10/EMI320-3F_WEB.png", code: "A1"});
             //const productAdded = await manager.addProduct({title:"Horno",description:"Horno Eléctrico",price:2000,thumbnail:"https://www.mattechile.cl/wp-content/uploads/2017/10/PR2021BI18532_41560060_HLB_830_SZ1.png", code: "B1", stock:11});
             //const productAdded = await manager.addProduct({title:"Refrigerador",description:"Refrigerador Doble",price:3000,thumbnail:"https://www.pngmart.com/files/6/Two-Door-Refrigerator-PNG-Clipart.png", code: "C1", stock:19});
-            //console.log("productAdded: ", productAdded);
+            console.log("productAdded: ", productAdded);
 
             const products = await manager.getProduct();
             console.log("products: ", products);

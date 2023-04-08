@@ -25,5 +25,14 @@
     "code": "C1",
     "stock": 19,
     "id": 3
+  },
+  {
+    "title": "Encimera",
+    "description": "Encimera Inducción",
+    "price": 1500,
+    "thumbnail": "https://aireacondicionadopaco.es/wp-content/uploads/2019/10/EMI320-3F_WEB.png",
+    "code": "A1",
+    "stock": 13,
+    "id": 4
   }
 ]
