@@ -1,11 +1,11 @@
-//DUDA: ¿PORQUE PASA ESO?
-//https://you.com/search?q=this+file+is+being+treated+as+an+es+module+because+it+has+a+%27.js%27+file+extension+and&tbm=youchat&cfr=chatb&cid=c2_4ad05055-7e24-4e15-98b4-9cac93590012
+//DESAFIO 3
 
-//const express = require('express');
-//const ProductManager = require('../ProductManager.js');
+const express = require('express');
+const fs = require('fs');
 
-import express from 'express';
-//import ProductManager from '../ProductManager.js';
+//import express from "express";
+//import ProductManager from "../ProductManager.js";
+
 const app =express();
 const port = 8080;
 
@@ -17,27 +17,37 @@ app.get("/",(request,response)=>{
 
 /*
 app.get("/products",(request,response)=>{
-    response.send("Bienvenido a productos");
-});
-
-app.get("/products",async(req,res) =>{
-    const products = await manager.getProduct();
-    resizeBy.send(products);
-});
-
-const manager = new ProductManager('../products.json');
-
-app.get("/products",async(req,res) =>{
-    const products = await manager.getProduct();
-    resizeBy.send(products);
-});
-
-// http://localhost:8080/products/Encimera
-// http://localhost:8080/products/Horno
-// http://localhost:8080/products/Refrigerador
-app.get("/products/:cualquierNombre",(req,res)=>{
-    const nombre = req.params.cualquierNombre;
-    const products = products.find(u=>u.title === nombre);
-    res.send(products);
+    response.send("Bienvenido a Productos");
 });
 */
+
+//--------------------------
+/*
+app.get('/products', (req, res) => {
+    fs.readFile('products.json', (err, data) => {
+      if (err) throw err;
+  
+      const products = JSON.parse(data);
+  
+      res.send(products);
+    });
+});
+*/
+
+app.get('/products', (req, res) => {
+  const limit = req.query.limit;
+  
+  fs.readFile('products.json', (err, data) => {
+    if (err) throw err;
+
+    const products = JSON.parse(data);
+
+    if (limit && !isNaN(limit)) {
+      res.send(products.slice(0, limit));
+    } else {
+      res.send(products);
+    }
+  });
+});
+
+  
